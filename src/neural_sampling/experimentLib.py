@@ -43,9 +43,8 @@ def select_equal_n_labels(n, data, labels, classes = None, seed=None):
     iv_l_seq = labels[a]
     return iv_seq, iv_l_seq
 
-def load_MNIST(n_samples, min_p = 0.0001, max_p = .95, binary = False, seed=None):
-    import scipy.io
-    mat = scipy.io.loadmat('../data/neural_nosoftmax2.mat')
+def load_MNIST(n_samples, min_p = 0.0001, max_p = .95, binary = False, seed=None, datafile = '../../data/mnist_reduced.pkl.gz'):
+
     if not binary:
         max_p_ = max_p
         min_p_ = min_p
@@ -53,10 +52,13 @@ def load_MNIST(n_samples, min_p = 0.0001, max_p = .95, binary = False, seed=None
         max_p_ = 0.5
         min_p_ = 0.5
         
-    train_iv = (mat['data']).astype('float')
-    train_iv_l = (mat['labels']-1).reshape(-1)
-    test_iv = (mat['testdata']).astype('float')
-    test_iv_l = (mat['testlabels']-1).reshape(-1)
+    import gzip, cPickle
+    mat = cPickle.load(gzip.open(datafile, 'r'))
+
+    train_iv = mat['train']
+    train_iv_l = mat['train_label']
+    test_iv = mat['test']
+    test_iv_l = mat['test_label']
     
     train_iv[train_iv >= max_p_] = max_p
     test_iv[test_iv >= max_p_]= max_p

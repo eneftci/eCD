@@ -3,7 +3,6 @@
 *.pickle
 .*.sw[a-z]
 Results/
-data/
 nohup.out
 
 # Packages
