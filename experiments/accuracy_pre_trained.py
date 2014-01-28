@@ -6,7 +6,7 @@
 # Author: Emre Neftci
 #
 # Creation Date : 25-04-2013
-# Last Modified : Wed 15 Jan 2014 03:53:58 PM PST
+# Last Modified : Tue 28 Jan 2014 11:45:47 AM PST
 #
 # Copyright : (c) 
 # Licence : GPLv2
@@ -17,7 +17,7 @@ from common import *
 from MNIST_IF_RATE_UB import main
 
 #Data ran on Results//207__25-11-2013/WSCD.pkl
-Wh,Wc,b_init = load_NS_v2(N_v, N_h, N_c, dataset = 'data/WSCD.pkl')
+Wh,Wc,b_init = load_NS_v2(N_v, N_h, N_c, dataset = '../data/WSCD.pkl')
 W = np.zeros([N_v+N_c,N_h])
 W[:(N_v),:] = Wh
 W[N_v:(N_v+N_c),:] = Wc.T

@@ -6,7 +6,7 @@
 # Author: Emre Neftci
 #
 # Creation Date : 25-04-2013
-# Last Modified : Wed 15 Jan 2014 03:56:43 PM PST
+# Last Modified : Tue 28 Jan 2014 11:45:22 AM PST
 #
 # Copyright : (c) 
 # Licence : GPLv2
@@ -18,7 +18,7 @@ from MNIST_IF_RATE_UB import main
 
 #Wh,Wc,b_init = load_NS_v2(N_v, N_h, N_c, dataset = 'Results//064__04-10-2013/WSCD.pkl')
 #Wh,Wc,b_init = load_NS_v2(N_v, N_h, N_c, dataset = 'Results//076a__06-10-2013/WSCD.pkl')
-Wh,Wc,b_init = load_NS_v2(N_v, N_h, N_c, dataset = 'data/WSCD.pkl')
+Wh,Wc,b_init = load_NS_v2(N_v, N_h, N_c, dataset = '../data/WSCD.pkl')
 #Wh,Wc,b_init = load_matlab_v2(N_v, N_h, N_c, model='model', dataset = '../data/rbm_gibbs_bias_momentum_decay_multiclassunits_backtoback.mat')
 #
 #Wh,Wc,b_init = load_matlab_v2(N_v, N_h, N_c, model='model', dataset = '../data/rbm_gibbs_bias_no_momentum_no_decay_multiclassunits_backtoback.mat')

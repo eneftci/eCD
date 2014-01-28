@@ -6,7 +6,7 @@
 # Author: Emre Neftci
 #
 # Creation Date : 25-04-2013
-# Last Modified : Wed 15 Jan 2014 03:57:26 PM PST
+# Last Modified : Tue 28 Jan 2014 11:48:42 AM PST
 #
 # Copyright : (c) 
 # Licence : GPLv2
@@ -18,7 +18,7 @@ from common import *
 from MNIST_IF_STDP_WMON_UB import main
 
 #dataset_dir = 'Results/073a__06-10-2013/'
-dataset_dir = 'data/'
+dataset_dir = '../data/'
 ioff()
 
 N = 1
@@ -136,77 +136,20 @@ if __name__ == '__main__':
             out_after['w_hist_v'],
             out_after['w_hist_c'],
             dcmt*t_ref,3*dcmt*t_ref, 'after')
-#
-#    dataset_dir_10 = '../Results/077__25-05-2013/'
-#    dataset_dir_15 = '../Results/076__25-05-2013/'
-#    dataset_dir_50 = '../Results/078__26-05-2013/'
-    out = cPickle.load(file(dataset_dir+'/globaldata.pickle','r'))
-#    out_10 = cPickle.load(file(dataset_dir_10+'/globaldata.pickle','r'))
-#    out_15 = cPickle.load(file(dataset_dir_15+'/globaldata.pickle','r'))
-#    out_50 = cPickle.load(file(dataset_dir_50+'/globaldata.pickle','r'))
-    figure(figsize=[5.0,5.0])
-    matplotlib.rcParams['figure.subplot.top'] = .9
-    matplotlib.rcParams['figure.subplot.bottom'] = .2
-    matplotlib.rcParams['figure.subplot.left'] = .23
-    matplotlib.rcParams['figure.subplot.right'] = .85
-    plot(np.arange(0,10000,10), out.res_hist_test[:1000], color='k', linewidth=3, label = '0.1s', alpha=1.0)
-    ylabel('Accuracy')
-    xlabel('# Samples')
-    yticks([0.,.1,.5,.90,1])
-    axhline(0.90,color='k')
-    axhline(.1,color='k')
-    xlim([0, 6000])
-    xticks([0,5000,10000])
-    et.savefig('convergence.png', format='png')
-#
-#    matplotlib.rcParams['figure.subplot.left']=.16
-#    matplotlib.rcParams['figure.subplot.right']=.94
-#    figure(figsize=(8.0,4.0))
-#    Sh=monitor_to_spikelist(out_after['Mh']).time_slice(dcmt*t_ref,3*dcmt*t_ref)
-#    Sv=monitor_to_spikelist(out_after['Mv']).time_slice(dcmt*t_ref,3*dcmt*t_ref)
-#    Sc=monitor_to_spikelist(out_after['Mc']).time_slice(dcmt*t_ref,3*dcmt*t_ref)
-#    tbin = 5
-#    labello = ['$v$', '$h$', '$c$']
-#    for i, S in enumerate([Sv, Sh, Sc]):
-#        subplot(311+i)
-#        bar(S.time_axis(tbin)[:-1], S.spike_histogram(time_bin=tbin, normalized=True).mean(axis=0), label = labello[i], alpha=0.5, width=tbin, linewidth=0)
-#        axvline(0*1000, color='k')
-#        axvline(dcmt*t_ref*0.49*1000, color='k')
-#        axvline(dcmt*t_ref*0.5*1000, color='k')
-#        axvline(dcmt*t_ref*1.0*1000, color='k')
-#        axvline(dcmt*t_ref*1.5*1000, color='k')
-#        axvline(dcmt*t_ref*2.0*1000, color='k', linewidth=5)
-#        axvline(dcmt*t_ref*2.5*1000, color='k')
-#        axvline(dcmt*t_ref*3.0*1000, color='k')
-#        axvline(dcmt*t_ref*3.5*1000, color='k')
-#        axvline(dcmt*t_ref*4.0*1000, color='k')
-#        ylim([0,50])
-#        yticks([])
-#        xticks([])
-#        legend(frameon=False, prop={'size':14}, bbox_to_anchor=(1.02,1.2))
-#    xticks([0,1000,2000],[0,1,2])
-#    subplot(312)
-#    yticks([0,50])
-#    ylabel('Firing rate [Hz]')
-#    subplot(313)
-#    gca().add_patch(Rectangle((250,5), 5*t_ref*1000, 3, fill=True, color='k'))
-#
-#    et.savefig('online_rates.png', format='png')
-##
-##    figure()
-#    hist(np.concatenate(Sh.time_slice(500,1000).isi()),bins=np.arange(0,100,2), alpha=.5, linewidth=0, label='before')
-#
-#    hist(np.concatenate(Sh.time_slice(1500,2000).isi()),bins=np.arange(0,100,2), alpha=.5, linewidth=0, label='after')
-#    legend(prop={'size':16})
-#    xlabel('ISI[ms]')
-#    ylabel('Count')
-#    et.savefig('isihist_rates.png', format='png')
-#
-#    figure()
-#    hist(Sh.time_slice(500,1000).mean_rates(), alpha=0.5, linewidth=0, label='before', bins=20)
-#
-#    hist(Sh.time_slice(1500,2000).mean_rates(), alpha=0.5, linewidth=0, label='after', bins=20)
-#    legend(prop={'size':16})
-#    xlabel('Firing Rate[Hz]')
-#    ylabel('Count')
-#    et.savefig('hist_rates.png', format='png')
+
+#   out = cPickle.load(file(dataset_dir+'/globaldata.pickle','r'))
+
+#   matplotlib.rcParams['figure.subplot.top'] = .9
+#   matplotlib.rcParams['figure.subplot.bottom'] = .2
+#   matplotlib.rcParams['figure.subplot.left'] = .23
+#   matplotlib.rcParams['figure.subplot.right'] = .85
+#   plot(np.arange(0,10000,10), out.res_hist_test[:1000], color='k', linewidth=3, label = '0.1s', alpha=1.0)
+#   ylabel('Accuracy')
+#   xlabel('# Samples')
+#   yticks([0.,.1,.5,.90,1])
+#   axhline(0.90,color='k')
+#   axhline(.1,color='k')
+#   xlim([0, 6000])
+#   xticks([0,5000,10000])
+#   et.savefig('convergence.png', format='png')
+

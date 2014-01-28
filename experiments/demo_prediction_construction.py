@@ -6,7 +6,7 @@
 # Author: Emre Neftci
 #
 # Creation Date : 25-04-2013
-# Last Modified : Wed 15 Jan 2014 03:58:08 PM PST
+# Last Modified : Tue 28 Jan 2014 11:46:15 AM PST
 #
 # Copyright : (c) 
 # Licence : GPLv2
@@ -24,7 +24,7 @@ matplotlib.rcParams['font.size']=22.0
 #n_c_unit = N_c / n_classes
 
 
-Wh,Wc,b_init = load_NS_v2(N_v, N_h, N_c, dataset = 'data/WSCD.pkl')
+Wh,Wc,b_init = load_NS_v2(N_v, N_h, N_c, dataset = '../data/WSCD.pkl')
 W = np.zeros([N_v+N_c,N_h])
 W[:(N_v),:] = Wh
 W[N_v:(N_v+N_c),:] = Wc.T
