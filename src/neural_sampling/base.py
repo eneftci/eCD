@@ -1,7 +1,68 @@
 import numpy as np
 import scipy as sp
-from nnf.global_funcs import *
-from nnf import Instantiable
+
+class WithDefaultParameters(object):
+    '''
+    A class that has default parameters as static variables. All parameters
+    provided in the constructor are collected in a common parameter member
+    '''
+    
+    default_parameters = {}
+    
+    def __init__(self, *params, **kw_params):
+        self._parameters = {}
+        self.__update_params(self.default_parameters)
+        self.__update_params(kw_params)                
+        self.update_default_parameters()
+        super(WithDefaultParameters, self).__init__()
+
+    def __update_params(self, dict_ = {}):
+        d = self.local_params(dict_)        
+        self._parameters.update(d)
+    
+    def local_params(self, dict_ = {}):        
+        local_dict = self.parameters.copy()
+        local_dict.update(dict_)
+        return local_dict
+
+    def update_default_parameters(self):
+        pass
+        
+    @property
+    def parameters(self):
+        return self._parameters
+
+    @property
+    def p(self):
+        return self._parameters
+    
+    def set_default_parameters(self, dict_):
+        self._parameters = dict_.copy()
+
+class Instantiable(WithDefaultParameters):
+    '''
+    A class that can be instantiated
+    '''
+    
+    def instantiate(self, parameters={}):
+        '''
+        instantiates the instantiable object. parameters should be passed to the
+        constructor of the object
+        '''
+        self.instantiated = True
+
+
+    @property
+    def instantiated(self):
+        if not hasattr(self, '_instantiated'):
+            self._instantiated = False
+        else:
+            return self._instantiated
+
+    @instantiated.setter
+    def instantiated(self, value = True):
+        self._instantiated = value
+
 
 class WithNeuralParameters(Instantiable):
     default_parameters = {}
