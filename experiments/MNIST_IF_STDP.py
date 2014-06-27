@@ -205,7 +205,6 @@ def main(Whv, b_v, b_c, b_h, Id, dorun = True, monitors=True, display=False, mni
             b_v = mBv[:N_v]
             b_h = mBh
             mB = np.concatenate([mBv,mBh])
-            et.save({'Wh':Wvh, 'Wc':Wch, 'b_vch': mB}, 'Results/best/WSCD{0}.pkl'.format(n))
     
         
             accuracy_test = classification_free_energy(Wvh, Wch, b_h, b_c, test_data, test_labels, n_c_unit)[0]    
