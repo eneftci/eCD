@@ -16,7 +16,6 @@ import neusa.experimentTools as et
 
 from meta_parameters import *
 exec("from {0} import *".format(parameters_script))
-#from default_parameters import *
 
 def round_to_bits(W, n_bits, clip=[-1.5,1.5]):
     W_f = W.flatten()
@@ -27,7 +26,7 @@ def round_to_bits(W, n_bits, clip=[-1.5,1.5]):
     hb = np.maximum(0,np.minimum(len(x)-1,(x>clip[1]).searchsorted(False, 'right')))
     new_bins = np.linspace(x[lb],x[hb],2**n_bits)
     n, x = np.histogram(W_f, bins = new_bins)
-    delta = x[1]-x[0]
+    delta = x[1]-x[0] of the transfer curve
     x += delta/2
     idx = x.searchsorted(W_f, side='left')
     idx[idx >= len(x)]=len(x)-1
@@ -52,8 +51,6 @@ def load_mnist_data(min_p = 1e-4, max_p=.95, binary=False, seed=None):
                             seed = seed)
     iv_seq, iv_l_seq, train_iv, train_iv_l, test_iv, test_iv_l = mnist_data
     return iv_seq, iv_l_seq, train_iv, train_iv_l, test_iv, test_iv_l
-
-ion()
 
 def create_Id(data = True, c_min_p = 1e-4, c_max_p = .95, seed = None):
     if hasattr(data, '__len__'):

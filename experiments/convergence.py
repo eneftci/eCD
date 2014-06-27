@@ -1,19 +1,19 @@
 #!/bin/python
 #-----------------------------------------------------------------------------
-# File Name : mnist_feedback.py
-# Purpose:
+# File Name : convergence.py
+# Purpose: Generates plots from a pre-trained RBM showing the convergence of the eCD rule
 #
 # Author: Emre Neftci
 #
 # Creation Date : 25-04-2013
-# Last Modified : Tue 28 Jan 2014 11:48:42 AM PST
+# Last Modified : Fri 27 Jun 2014 02:24:58 PM PDT
 #
 # Copyright : (c) 
 # Licence : GPLv2
 #----------------------------------------------------------------------------- 
 
 import meta_parameters
-meta_parameters.parameters_script = 'convergence_parameters_UB'
+meta_parameters.parameters_script = 'parameters_convergence'
 from common import *
 from MNIST_IF_STDP_WMON_UB import main
 
@@ -37,9 +37,7 @@ if __name__ == '__main__':
     W, b_v, b_c, b_h = create_rbm_parameters()
     out_before = main(W, b_v, b_c, b_h, Id = Ids, display=True, mnist_data = data)
 
-    #Wh, Wc, b_init = load_matlab_v2(N_v, N_h, N_c, model = 'model5', dataset = '../data/model_5units.mat')
     Wh,Wc,b_init = load_NS_v2(N_v, N_h, N_c, dataset = dataset_dir + 'WSCD.pkl')
-    #Wh,Wc,b_init = load_matlab_v2(N_v, N_h, N_c, model='model', dataset = '../data/rbm_gibbs_bias_momentum_decay_multiclassunits.mat')
     W = np.zeros([N_v+N_c,N_h])
     W[:(N_v),:] = Wh
     W[N_v:(N_v+N_c),:] = Wc.T
@@ -136,20 +134,4 @@ if __name__ == '__main__':
             out_after['w_hist_v'],
             out_after['w_hist_c'],
             dcmt*t_ref,3*dcmt*t_ref, 'after')
-
-#   out = cPickle.load(file(dataset_dir+'/globaldata.pickle','r'))
-
-#   matplotlib.rcParams['figure.subplot.top'] = .9
-#   matplotlib.rcParams['figure.subplot.bottom'] = .2
-#   matplotlib.rcParams['figure.subplot.left'] = .23
-#   matplotlib.rcParams['figure.subplot.right'] = .85
-#   plot(np.arange(0,10000,10), out.res_hist_test[:1000], color='k', linewidth=3, label = '0.1s', alpha=1.0)
-#   ylabel('Accuracy')
-#   xlabel('# Samples')
-#   yticks([0.,.1,.5,.90,1])
-#   axhline(0.90,color='k')
-#   axhline(.1,color='k')
-#   xlim([0, 6000])
-#   xticks([0,5000,10000])
-#   et.savefig('convergence.png', format='png')
 

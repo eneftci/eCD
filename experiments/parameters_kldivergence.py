@@ -1,14 +1,14 @@
 #!/bin/python
 #-----------------------------------------------------------------------------
-# File Name : kldivergence_parameters.py
-# Purpose:
+# File Name : parameters_kldivergence.py
+# Purpose: File containing the parameters for running the KL divergence tests
 #
 # Author: Emre Neftci
 #
 # Creation Date : 24-04-2013
-# Last Modified : Tue 26 Nov 2013 10:00:40 AM PST
+# Last Modified : Fri 27 Jun 2014 02:23:21 PM PDT
 #
-# Copyright : (c) 
+# Copyright : (c) UCSD, Emre Neftci, Srinjoy Das, Bruno Pedroni, Kenneth Kreutz-Delgado, Gert Cauwenberghs
 # Licence : GPLv2
 #----------------------------------------------------------------------------- 
 import numpy as np

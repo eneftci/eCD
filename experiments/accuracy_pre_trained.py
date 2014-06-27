@@ -6,13 +6,13 @@
 # Author: Emre Neftci
 #
 # Creation Date : 25-04-2013
-# Last Modified : Tue 28 Jan 2014 11:45:47 AM PST
+# Last Modified : Fri 27 Jun 2014 02:18:06 PM PDT
 #
 # Copyright : (c) 
 # Licence : GPLv2
 #----------------------------------------------------------------------------- 
 import meta_parameters
-meta_parameters.parameters_script = 'accuracy_parameters_short_unbounded'
+meta_parameters.parameters_script = 'parameters_accuracy'
 from common import *
 from MNIST_IF_RATE_UB import main
 

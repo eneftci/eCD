@@ -1,23 +1,23 @@
 #!/bin/python
 #-----------------------------------------------------------------------------
-# File Name : mnist_feedback.py
-# Purpose:
+# File Name : reconstruct_all.py
+# Purpose: Reconstructs MNIST digits from pre-trained RBM
 #
 # Author: Emre Neftci
 #
 # Creation Date : 25-04-2013
-# Last Modified : Tue 28 Jan 2014 11:46:32 AM PST
+# Last Modified : Fri 27 Jun 2014 02:27:16 PM PDT
 #
 # Copyright : (c) 
 # Licence : GPLv2
 #----------------------------------------------------------------------------- 
 import numpy
 import meta_parameters
-meta_parameters.parameters_script = 'reconstruct_all_parameters_UB'
+meta_parameters.parameters_script = 'parameters_reconstruct_all'
 from common import *
 from MNIST_IF_STDP_SEQ_UB import main
 
-
+#Load pre-trained RBM
 Wh,Wc,b_init = load_NS_v2(N_v, N_h, N_c, dataset = '../data/WSCD.pkl')
 W = np.zeros([N_v+N_c,N_h])
 W[:(N_v),:] = Wh

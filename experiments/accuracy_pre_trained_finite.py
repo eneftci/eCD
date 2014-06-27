@@ -6,14 +6,14 @@
 # Author: Emre Neftci
 #
 # Creation Date : 25-04-2013
-# Last Modified : Fri 27 Jun 2014 01:56:12 PM PDT
+# Last Modified : Fri 27 Jun 2014 02:18:10 PM PDT
 #
 # Copyright : (c) UCSD, Emre Neftci, Srinjoy Das, Bruno Pedroni, Kenneth Kreutz-Delgado, Gert Cauwenberghs
 # Licence : GPLv2
 #----------------------------------------------------------------------------- 
 
 import meta_parameters
-meta_parameters.parameters_script = 'accuracy_parameters_short_unbounded'
+meta_parameters.parameters_script = 'parameters_accuracy'
 from common import *
 from MNIST_IF_RATE_UB import main
 
@@ -32,8 +32,10 @@ data =  mnist_data = load_MNIST(1,
                             binary = True,
                             seed = None)
 
+################################################
 #Discretize the Boltzmann machine parameters 
 #The parameter range is [mean-c*std, mean+c*std]
+################################################
 nbits = 8 #Number of bits
 c=8.5 #Cut-off
 b_v = round_to_bits(b_v, nbits, clip = [b_v.mean()-c*b_v.std(),b_v.mean()+c*b_v.std()])
@@ -53,13 +55,16 @@ def create_Id_no_class(data, min_p = 1e-4, max_p = .98, seed = None):
     Id = (Idp /beta)
     return Id, test_iv, test_iv_l
 
-
 def wrap_run(Id):
+    '''
+    Wrap run for multiprocessing
+    '''
     out = main(W_finite, b_v, b_c, b_h, Id = np.array([Id]))
     Mh, Mv= out['Mh'], out['Mv']
     return monitor_to_spikelist(Mv).firing_rate(tbin)[N_v:,:]
-if __name__ == '__main__':
 
+
+if __name__ == '__main__':
     Ids, test_data, test_labels = create_Id_no_class(data)
     
     free_en_perf = classification_free_energy(Wh, Wc.T, b_h, b_c, test_data[:N,:N_v], test_labels[:N], n_c_unit)[0]
@@ -94,52 +99,3 @@ if __name__ == '__main__':
     ylabel('Accuracy')
 
 
-#    res_out = [p[:,tl[i]].mean(axis=1).argmax() for i,p in enumerate(pool_out)]
-#    print np.mean(np.array(res_out) == test_labels[:N])
-##    print os.path.dirname(os.path.abspath(__file__))
-#    et.mksavedir()
-#    et.annotate('PERFORMANCE','{0}'.format(np.mean(np.array(res_out) == test_labels[:N])))
-#    et.globaldata.pool_out = pool_out
-#    et.save_file(__file__)
-#    et.save()
-#    import matplotlib, pylab
-#    matplotlib.rcParams['savefig.dpi']=180.
-#    matplotlib.rcParams['font.size']=26.0
-#    matplotlib.rcParams['figure.figsize']=(6.0,6.0)
-#    matplotlib.rcParams['axes.formatter.limits']=[-10,10]
-#    pylab.rc('legend', borderaxespad=0., borderpad=.4,
-#    handlelength=1.4, labelspacing=0.4)
-#
-#    figure()
-#    ion()
-#    raster_plot(Mv, Mh, Mc)
-#    axhline(1, color='k', linewidth=2, alpha=0.8)
-#    axhline(2, color='k', linewidth=2, alpha=0.8)
-#    yticks([.5, 1.5, 2.5],['v$','$h$','$c$'])
-#    ylabel('')
-#    xlim([0,500])
-#    pylab.savefig('paper/raster_reconstruction.png', format='png')
-#
-#    figure()
-#    imshow(np.array(spike_histogram(Mv,.1,1)).T[1].reshape(28,28))
-#    xticks([])
-#    yticks([])
-#    pylab.savefig('paper/reconstruction.png', format='png')
-#
-#    figure()
-#    N = MV.values.shape[0]
-#    for i in range(N):
-#    if i==9:
-#        c='r'
-#    else:
-#        c='k'
-#    plot(np.concatenate([np.array([-0.1]),MV.times]),np.concatenate([np.array([i]),0.7*MV.values[i,:]+i]), c)
-#    xlim([-0.1,0.5])
-#    ylim([-1,10])
-#    yticks(range(10))
-#    xticks([0,0.5])
-#    xlabel('Time[s]')
-#    ylabel('Class Label Neuron #')
-#    #gca().add_patch(Rectangle((-0.05,0),0.02,.7, color='k'))
-#    #text(-0.07,-0.6, '1.0V')
-#    pylab.savefig('paper/vmem.png', format='png')
