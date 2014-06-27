@@ -6,7 +6,7 @@
 # Author: Emre Neftci
 #
 # Creation Date : 25-04-2013
-# Last Modified : Fri 27 Jun 2014 02:42:58 PM PDT
+# Last Modified : Fri 27 Jun 2014 03:42:36 PM PDT
 #
 # Copyright : (c) UCSD, Emre Neftci, Srinjoy Das, Bruno Pedroni, Kenneth Kreutz-Delgado, Gert Cauwenberghs
 # Licence : GPLv2
@@ -18,7 +18,7 @@ from common import *
 from MNIST_IF_STDP_SEQ_UB import main
 
 #Load pre-trained RBM
-Wh,Wc,b_init = load_NS_v2(N_v, N_h, N_c, dataset = '../data/WSCD.pkl')
+Wh,Wc,b_init = load_NS_v2(N_v, N_h, N_c, dataset = 'data/WSCD.pkl')
 W = np.zeros([N_v+N_c,N_h])
 W[:(N_v),:] = Wh
 W[N_v:(N_v+N_c),:] = Wc.T

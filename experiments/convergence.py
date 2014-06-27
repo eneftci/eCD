@@ -6,7 +6,7 @@
 # Author: Emre Neftci
 #
 # Creation Date : 25-04-2013
-# Last Modified : Fri 27 Jun 2014 02:44:24 PM PDT
+# Last Modified : Fri 27 Jun 2014 03:42:54 PM PDT
 #
 # Copyright : (c) UCSD, Emre Neftci, Srinjoy Das, Bruno Pedroni, Kenneth Kreutz-Delgado, Gert Cauwenberghs
 # Licence : GPLv2
@@ -18,7 +18,7 @@ from common import *
 from MNIST_IF_STDP_WMON import main
 
 #dataset_dir = 'Results/073a__06-10-2013/'
-dataset_dir = '../data/'
+dataset_dir = 'data/'
 ioff()
 
 N = 1

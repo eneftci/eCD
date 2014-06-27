@@ -6,7 +6,7 @@
 # Author: Emre Neftci
 #
 # Creation Date : 25-04-2013
-# Last Modified : Fri 27 Jun 2014 03:39:24 PM PDT
+# Last Modified : Fri 27 Jun 2014 03:42:28 PM PDT
 #
 # Copyright : (c) UCSD, Emre Neftci, Srinjoy Das, Bruno Pedroni, Kenneth Kreutz-Delgado, Gert Cauwenberghs
 # Licence : GPLv2
@@ -24,7 +24,7 @@ matplotlib.rcParams['font.size']=22.0
 #n_c_unit = N_c / n_classes
 
 
-Wh,Wc,b_init = load_NS_v2(N_v, N_h, N_c, dataset = '../data/WSCD.pkl')
+Wh,Wc,b_init = load_NS_v2(N_v, N_h, N_c, dataset = 'data/WSCD.pkl')
 W = np.zeros([N_v+N_c,N_h])
 W[:(N_v),:] = Wh
 W[N_v:(N_v+N_c),:] = Wc.T
@@ -61,7 +61,7 @@ if __name__ == '__main__':
     cl[(6*n_c_unit):(7*n_c_unit)] = .98
     hacked_digit[N_v:]= clamped_input_transform(cl, min_p = 1e-16, max_p = .500+.2e-9)
 
-    Ids_demo = np.load('../data/ids.npy')
+    Ids_demo = np.load('data/ids.npy')
     Ids = np.column_stack([
         create_single_Id(3,data,mult_class=0.0,mult_data=1.0)*0,
         create_single_Id(3,data,mult_class=0.0,mult_data=1.0),
