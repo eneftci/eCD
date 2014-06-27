@@ -1,21 +1,51 @@
-Python Pre-requisites
+Python pre-requisites
+---------------------
 -Brian (http://briansimulator.org/)
 -Numpy (http://www.numpy.org/)
 -Matplotlib (http://matplotlib.org/)
 
+
 Other pre-requisites:
+---------------------
 - git (http://git-scm.com/)
 
-Clone the dire
-1. git clone  http://github.com/eneftci/eCD
+Installation steps
+------------------
 
-Install the python library (will be installed as neusa). This will install as root. 
-2. sudo python setup.py install
+1. Clone the repository
+
+>>> git clone  http://github.com/eneftci/eCD
+
+2. Install the python library (will be installed as neusa). This will install as root. 
+
+>>> sudo python setup.py install
 
 If you wish to install in a user directory, you need to add this directory in the PYTHONPATH environment variable.  Assuming you have a 64-bit machine:
 
-python setup.py install --prefix=your_directory
-export PYTHONPATH=$PYTHONPATH:your_directory/lib64/python2.7/site-packages'
+>>> export PYTHONPATH=$PYTHONPATH:your_directory/lib64/python2.7/site-packages'
+>>> python setup.py install --prefix=your_directory
+
+For more information on python paths and installing modules, see https://docs.python.org/2/install
+
+Running the scripts
+-------------------
+
+The scripts in the experiments directory generate the data necessary for the figures in the paper "Event-driven Constrastive Divergence for Spiking Neuromorphic Systems"
+
+MNIST_IF_STDP_SEQ_UB.py                                                                                       
+MNIST_IF_STDP_UB.py
+MNIST_IF_STDP_WMON_UB.py
+MNIST_SRM_RATE.py
+MNIST_SRM_STDP.py
+
+accuracy_pre_trained.py
+accuracy_pre_trained_finite_UB.py
+cal_test_parameters_short_unbounded.py
+calibrate_beta_gamma_wn_unbounded.py
+convergence.py
+demo_prediction_construction.py
+kldivergence_parameters_short_unbounded.py
+
 
 
 
