@@ -1,12 +1,12 @@
 #!/bin/python
 #-----------------------------------------------------------------------------
-# File Name : accuracy_pre_trained_finite_UB.py
+# File Name : accuracy_pre_trained_finite.py
 # Purpose: Tests the accuracy of a pre-trained RBM for finite precision parameters
 #
 # Author: Emre Neftci
 #
 # Creation Date : 25-04-2013
-# Last Modified : Fri 27 Jun 2014 02:18:10 PM PDT
+# Last Modified : Fri 27 Jun 2014 02:51:21 PM PDT
 #
 # Copyright : (c) UCSD, Emre Neftci, Srinjoy Das, Bruno Pedroni, Kenneth Kreutz-Delgado, Gert Cauwenberghs
 # Licence : GPLv2
@@ -15,7 +15,7 @@
 import meta_parameters
 meta_parameters.parameters_script = 'parameters_accuracy'
 from common import *
-from MNIST_IF_RATE_UB import main
+from MNIST_IF_RATE import main
 
 Wh,Wc,b_init = load_NS_v2(N_v, N_h, N_c, dataset = '../data/WSCD.pkl')
 W = np.zeros([N_v+N_c,N_h])

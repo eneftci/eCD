@@ -6,15 +6,15 @@
 # Author: Emre Neftci
 #
 # Creation Date : 25-04-2013
-# Last Modified : Fri 27 Jun 2014 02:18:06 PM PDT
+# Last Modified : Fri 27 Jun 2014 02:51:15 PM PDT
 #
-# Copyright : (c) 
+# Copyright : (c) UCSD, Emre Neftci, Srinjoy Das, Bruno Pedroni, Kenneth Kreutz-Delgado, Gert Cauwenberghs
 # Licence : GPLv2
 #----------------------------------------------------------------------------- 
 import meta_parameters
 meta_parameters.parameters_script = 'parameters_accuracy'
 from common import *
-from MNIST_IF_RATE_UB import main
+from MNIST_IF_RATE import main
 
 #Data ran on Results//207__25-11-2013/WSCD.pkl
 Wh,Wc,b_init = load_NS_v2(N_v, N_h, N_c, dataset = '../data/WSCD.pkl')
