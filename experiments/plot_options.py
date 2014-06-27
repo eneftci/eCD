@@ -6,7 +6,7 @@
 # Author: Emre Neftci
 #
 # Creation Date : 24-04-2013
-# Last Modified : Thu 19 Dec 2013 12:54:20 PM PST
+# Last Modified : Fri 27 Jun 2014 01:59:24 PM PDT
 #
 # Copyright : (c) 
 # Licence : GPLv2
@@ -18,5 +18,4 @@ matplotlib.rcParams['font.size']=25.0
 matplotlib.rcParams['figure.figsize']=(8.0,6.0)
 matplotlib.rcParams['axes.formatter.limits']=[-10,10]
 matplotlib.rcParams['figure.subplot.bottom'] = .2
-pylab.ion()
 
