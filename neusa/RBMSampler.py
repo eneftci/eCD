@@ -6,7 +6,7 @@
 # Author: Emre Neftci
 #
 # Creation Date : 14-01-2013
-# Last Modified : Fri 03 May 2013 06:00:18 PM PDT
+# Last Modified : Tue 04 Feb 2014 08:42:50 PM PST
 #
 # Copyright : (c) Emre Neftci
 # Licence : GPLv2
@@ -15,10 +15,8 @@
 import brian_no_units
 import sys, time
 from brian import *
-from nnf.global_funcs import *
-from funcs import ns_hist, plot_ns_hist
-from nnf.nm.models import Instantiable
-from base import WithNeuralParameters
+from funcs import *
+from base import WithNeuralParameters, Instantiable
 
 class NeuralNetworkInterface(WithNeuralParameters):
     '''
@@ -453,7 +451,6 @@ class NeuralSamplerCLIF(NeuralSamplerBase):
         self.p['sigma'] = .1e-9*amp
 
     def create_neuron_group(self):
-        import nnf.nm.spiking_model as sm
         import scipy.io
 
         #------------------------------------------------------------- Neuron parameters
@@ -550,7 +547,6 @@ class NeuralSamplerCLIF(NeuralSamplerBase):
 #class NeuralSamplerCLIFLearning(NeuralSamplerCLIF):
 #
 #    def create_neuron_group(self):
-#        import nnf.nm.spiking_model as sm
 #        import scipy.io
 #
 #        #------------------------------------------------------------- Neuron parameters
@@ -686,7 +682,6 @@ class NeuralSamplerCLIF(NeuralSamplerBase):
 
 class NeuralSamplerCLIFSpikingBias(NeuralSamplerCLIF):
     def create_neuron_group(self):
-        import nnf.nm.spiking_model as sm
         import scipy.io
 
         #------------------------------------------------------------- Neuron parameters
@@ -787,7 +782,6 @@ class NeuralSamplerCLIFNoiseless(NeuralSamplerCLIF):
     #NON-FUNCTIONAL: Transfer function is not corrected to noiseless case!
     #
     def create_neuron_group(self):
-        import nnf.nm.spiking_model as sm
         import scipy.io
 
         #------------------------------------------------------------- Neuron parameters
@@ -854,7 +848,6 @@ class NeuralSamplerCLIFNoiseless(NeuralSamplerCLIF):
 
 class NeuralSamplerCLIFMismatched(NeuralSamplerCLIF):
     def create_neuron_group(self):
-        import nnf.nm.spiking_model as sm
         import scipy.io
 
         #------------------------------------------------------------- Neuron parameters

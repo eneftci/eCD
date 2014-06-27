@@ -6,7 +6,7 @@
 # Author: Emre Neftci
 #
 # Creation Date : 24-04-2013
-# Last Modified : Fri 27 Jun 2014 04:01:20 PM PDT
+# Last Modified : Fri 27 Jun 2014 04:02:58 PM PDT
 #
 # Copyright : (c) 
 # Licence : GPLv2
@@ -20,7 +20,7 @@ import MNIST_IF_STDP
 import MNIST_IF_RATE
 
 runs = ['STDP','RATE']
-        ]
+        
 colors = ['g','b','r']
 
 def run_NS(params=None):

@@ -6,7 +6,7 @@
 # Author: Emre Neftci
 #
 # Creation Date : 24-04-2013
-# Last Modified : Fri 27 Jun 2014 02:23:21 PM PDT
+# Last Modified : Fri 27 Jun 2014 04:06:06 PM PDT
 #
 # Copyright : (c) UCSD, Emre Neftci, Srinjoy Das, Bruno Pedroni, Kenneth Kreutz-Delgado, Gert Cauwenberghs
 # Licence : GPLv2
@@ -25,7 +25,7 @@ N_h = N_hidden =5
 
 n_c_unit =  N_c/n_classes
 
-t_sim = 1000.  #seconds
+t_sim = 2.  #seconds
 dcmt = 5000000 #duty cyle in multiples of t_ref
 
 #----------------------------------------- Neuron parameters
@@ -71,6 +71,6 @@ def exp_prob_beta_gamma(dt, beta, g_leak, gamma, t_ref):
 defaultclock.dt = dt
 
 
-Nruns = 48
+Nruns = 4
 
          

@@ -63,25 +63,21 @@ res_ns0_params = [(states_ns_[0][i], W[i], b_v[i], b_h[i]) for i in range(Nruns)
 res_ns1_params = [(states_ns_[1][i], W[i], b_v[i], b_h[i]) for i in range(Nruns) ]
 res_0 = pool.map(c, res_ns0_params)
 res_1 = pool.map(c, res_ns1_params)
-#res_0 = [compute_distr_ns(states_ns_[0][i], W[i], b_v[i], b_h[i]) for i in xrange(Nruns)]
-#res_1 = [compute_distr_ns(states_ns_[1][i], W[i], b_v[i], b_h[i]) for i in xrange(Nruns)]
-#
-#
-##res_2 = [compute_distr_ns(states_ns_[2][i], W[i], b_v[i], b_h[i]) for i in xrange(Nruns)]
+
 res_gs_params = [(states_gs_[i], W[i], b_v[i], b_h[i]) for i in xrange(Nruns)]
 res_exact = [run_exact(W[i], b_v[i], b_h[i]) for i in xrange(Nruns ) ]
 res_gs = pool.map(c_gs, res_gs_params)
-#
+
 avg = lambda x: np.mean([x[i][2] for i in range(len(x))],axis=0)
 std = lambda x: np.std([x[i][2] for i in range(len(x))],axis=0)
-#
+
 matplotlib.rcParams['figure.subplot.bottom'] = .19
 matplotlib.rcParams['figure.subplot.top'] = .94
 matplotlib.rcParams['figure.subplot.right'] = .94
 matplotlib.rcParams['figure.subplot.left'] = .18
 figure(figsize=[4.8,4.8])
 ax = axes()
-pmplot(ax, res_0[0][1] ,avg(res_0) ,std(res_0)  ,color=color2[0], linestyle='-', marker='x', label = '$P_{{ {0}, {1} }}$'.format("NS",runs[0]))
+pmplot(ax, res_0[0][1] ,avg(res_0) ,std(res_0)  ,color=colors[0], linestyle='-', marker='x', label = '$P_{{ {0}, {1} }}$'.format("NS",runs[0]))
 pmplot(ax, res_1[0][1] ,avg(res_1) ,std(res_1)  ,color=colors[1], linestyle='-', marker='x', label = '$P_{{ {0}, {1} }}$'.format("NS",runs[1]))
 pmplot(ax, res_1[0][1] ,avg(res_gs),std(res_gs) ,color='k', linestyle='-', marker='x', label = '$P_{{ {0} }}$'.format("Gibbs"))
 ax.set_xscale('log')
@@ -95,14 +91,9 @@ draw()
 et.savefig('sampling_progress.png')
 
 
-#print kl_divergence_pdf(np.ones(2**(N_v+N_h))/2**(N_v+N_h), W, b_v, b_h)/entropy(np.ones(2**(N_v+N_h))/2**(N_v+N_h))
-#    
-#
-#
-##Get parameters of first run
-#distr_ns, d_gs, d_l, d_ex, kl1, kl2, params = out[2]
 distr_ns = [res_0[0][0], res_1[0][0]]
-#
+
+
 ##--------------------Plot------------------------------#
 f= lambda x: '$[\\mathtt{'+np.binary_repr(x, width=5)+'}]$'
 matplotlib.rcParams['figure.subplot.bottom'] = .35

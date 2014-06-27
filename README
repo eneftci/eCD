@@ -53,7 +53,6 @@ Generates (panels for Fig. 7) from a pre-trained RBM showing the convergence of 
 demonstrate_generative_model.py
 Generates data for Fig. 9
 
-
 The following files run the RBM + eCD (CD) on MNIST data, they can be ran directly, but are primarily intended to be used through the previously described scripts.
 
 MNIST_IF_STDP.py: Script containing the main functions for training the Integrate and Fire neuron based RBM using event-driven CD
