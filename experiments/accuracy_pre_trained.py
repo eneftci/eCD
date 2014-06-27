@@ -6,7 +6,7 @@
 # Author: Emre Neftci
 #
 # Creation Date : 25-04-2013
-# Last Modified : Fri 27 Jun 2014 02:51:15 PM PDT
+# Last Modified : Fri 27 Jun 2014 03:32:44 PM PDT
 #
 # Copyright : (c) UCSD, Emre Neftci, Srinjoy Das, Bruno Pedroni, Kenneth Kreutz-Delgado, Gert Cauwenberghs
 # Licence : GPLv2
@@ -46,6 +46,7 @@ def wrap_run(Id):
     out = main(W, b_v, b_c, b_h, Id = np.array([Id]))
     Mh, Mv= out['Mh'], out['Mv']
     return monitor_to_spikelist(Mv).firing_rate(tbin)[N_v:,:]
+
 if __name__ == '__main__':
 
     Ids, test_data, test_labels = create_Id_no_class(data)

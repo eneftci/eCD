@@ -6,7 +6,7 @@
 # Author: Emre Neftci
 #
 # Creation Date : 24-04-2013
-# Last Modified : Wed 27 Nov 2013 12:17:53 PM PST
+# Last Modified : Fri 27 Jun 2014 03:28:34 PM PDT
 #
 # Copyright : (c) 
 # Licence : GPLv2
@@ -69,6 +69,6 @@ def exp_prob_beta_gamma(dt, beta, g_leak, gamma, t_ref):
 
 defaultclock.dt = dt
 
-N = 1000
+N = 10
 
          

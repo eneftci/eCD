@@ -26,40 +26,19 @@ Other pre-requisites:
 Installation steps
 ------------------
 
-1. Clone the repository
-
 >>> git clone  http://github.com/eneftci/eCD
-
-2. Install the python library (will be installed as neusa). This will install as root. 
-
->>> sudo python setup.py install
-
-If you wish to install in a user directory, you need to add this directory in the PYTHONPATH environment variable.  
-
-For a 64-bit installation:
->>> export PYTHONPATH=$PYTHONPATH:your_directory/lib64/python2.7/site-packages'
-
-For a 32-bit installation:
->>> export PYTHONPATH=$PYTHONPATH:your_directory/lib/python2.7/site-packages'
-
-Then install using:
->>> python setup.py install --prefix=your_directory
-
-For more information on python paths and installing modules, see https://docs.python.org/2/install
 
 Running the scripts
 -------------------
 
 The scripts in the experiments directory generate the data necessary for the figures in the paper "Event-driven Constrastive Divergence for Spiking Neuromorphic Systems".
 
-
-
 calibrate.py: Calibrates the parameters of the sigmoid function by fitting the parameters gamma and beta to the transfer function of the IF neuron (Fig. 2)
 
-accuracy_pre_trained.py
-accuracy_pre_trained_finite.py
-train_mnist.py: 
-convergence.py: Generates plots from a pre-trained RBM showing the convergence of the eCD rule
+accuracy_pre_trained.py: Tests recognition accuracy on the entire MNIST test-set 
+accuracy_pre_trained_finite.py: Same as above but discretizes parameter to finite precision.
+train_mnist.py: Main script for training the RBM using eCD
+convergence.py: Generates plots from a pre-trained RBM showing the convergence of the eCD rule.
 
 demo_prediction_construction.py
 kldivergence_parameters_short_unbounded.py

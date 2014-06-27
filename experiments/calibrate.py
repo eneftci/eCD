@@ -6,7 +6,7 @@
 # Author: Emre Neftci
 #
 # Creation Date : 24-04-2013
-# Last Modified : Fri 27 Jun 2014 02:08:32 PM PDT
+# Last Modified : Fri 27 Jun 2014 03:24:43 PM PDT
 #
 # Copyright : (c) UCSD, Emre Neftci, Srinjoy Das, Bruno Pedroni, Kenneth Kreutz-Delgado, Gert Cauwenberghs
 # Licence : GPLv2
@@ -65,7 +65,7 @@ def wrap_run_tref(bias):
 
 if __name__ == '__main__':
     #Number of points of the transfer curve
-    N_run = 48
+    N_run = 12
     import multiprocessing
     pool = multiprocessing.Pool(8)
     d = et.mksavedir()

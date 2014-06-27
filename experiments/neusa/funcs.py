@@ -1,8 +1,8 @@
 import brian_no_units
 import cPickle, scipy.io, time
-# from neusa.funcs import ns_hist, plot_ns_hist, iter_bin_vec
 import numpy as np
 from copy import deepcopy
+import spikes
 
 from itertools import product as iterprod
 def iter_bin_vec(n):
@@ -132,8 +132,6 @@ def exponential_prob(dt):
     def func(V):
         return np.random.rand( len(V) ) < (1-np.exp(-np.exp(V)*float(dt)))
     return func
-
-
 
 def save_best_W(W, b, accuracy, res_hist, best_p):
     if len(res_hist)==0:
@@ -345,51 +343,6 @@ def time_slice(spike_monitor, t_start, t_stop):
         Ms_slice.spikes = []
     return Ms_slice
 
-def ksi( vmem_mon , vmin =0., vmax = 1.):
-    '''
-    kuramoto_synchronization_index
-    vmem_mon: statemonitor of the phase (membrane potential)
-    vmin, vmax: the values in vmem_mon will be clipped to [vmin,vmax]
-    '''
-    import numpy as np
-    x=ksi_phase(vmem_mon, vmin, vmax)
-    u=np.mean(x,axis=0)
-    return np.array([np.absolute(u),np.angle(u)]) 
-
-def ksi_phase(vmem_mon , vmin =0., vmax = 1.):
-    import numpy as np
-    g=vmem_mon.values.copy()
-    g[g>float(vmax)] = float(vmax)
-    g[g<float(vmin)] = float(vmin)
-    g=g.astype('complex')*2*np.pi
-    j=np.sqrt(np.complex(-1))
-    return np.exp(j*g)
-
-
-def plot_fourier_spectrum(M, Fs=1000.):
-    from numpy import sin, linspace, pi
-    from pylab import plot, show, title, xlabel, ylabel, subplot
-    from scipy import fft, arange
-
-    """
-    Plots a Single-Sided Amplitude Spectrum of y(t)
-    """
-    y=M.rate
-    n = len(y) # length of the signal
-    k = arange(n)
-    T = n/Fs
-    frq = k/T # two sides frequency range
-    frq = frq[range(n/2)] # one side frequency range
-
-    Y = fft(y)/n # fft computing and normalization
-    Y = Y[range(n/2)]
-    
-    plot(frq,abs(Y),'r') # plotting the spectrum
-    xlabel('Freq (Hz)')
-    ylabel('|Y(freq)|')
-
-
-
 def isi(M):    
     import numpy as np
     l = []
@@ -408,7 +361,6 @@ def isihist(M,sc):
     h = np.histogram(sc*f, bins=b)
     return h
 
-
 def softmax(x):
     return np.exp(x)/np.sum(np.exp(x))
 
@@ -420,22 +372,6 @@ def exponential_prob(dt):
         return np.random.rand( len(V) ) < (1-np.exp(-np.exp(V)*float(dt)))
     return func
 
-#def time_slice(spike_monitor, t_start, t_stop):
-#    import copy
-#    Ms_slice = copy.copy(Ms) 
-#    adtm = np.array(Ms.it)
-#    lo_idx = adtm[1]>t_start
-#    hi_idx = adtm[1]<t_stop
-#    idx = lo_idx * hi_idx
-#    Ms_slice.spikes = adtm.transpose()[idx].tolist()
-#    return Ms_slice 
-    
-#def spike_histogram(spike_monitor, t_start, t_stop):
-#    delta_t = t_stop - t_start
-#    k, v = zip(*spike_monitor.spiketimes.items())    
-#    count = np.array(map(len,spike_monitor.spiketimes.values()), dtype='float')/delta_t
-#    return zip(*[k,count])
-        
 def build_binary_vectors(N):
     import numpy as np
     g=[None for i in range(2**N)]
@@ -471,11 +407,10 @@ def inst_firing_rate(N, M, t_start, t_stop, dt=0.001):
     return S
 
 def monitor_to_spikelist(Ms):
-    import pyNCS.pyST as pyST
     s = np.array(Ms.spikes)
     id_list = range(len(Ms.source))
     s[:,1] = s[:,1] * 1000 #SpikeList takes ms
-    return pyST.SpikeList(spikes = s, id_list = id_list)
+    return spikes.SpikeList(spikes = s, id_list = id_list)
 
 def get_indexes(a):
     import numpy as np

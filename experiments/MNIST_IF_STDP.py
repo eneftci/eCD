@@ -6,7 +6,7 @@
 # Author: Emre Neftci
 #
 # Creation Date : 25-04-2013
-# Last Modified : Fri 27 Jun 2014 02:59:10 PM PDT
+# Last Modified : Fri 27 Jun 2014 03:15:15 PM PDT
 #
 # Copyright : (c) 
 # Licence : GPLv2
@@ -207,11 +207,9 @@ def main(Whv, b_v, b_c, b_h, Id, dorun = True, monitors=True, display=False, mni
             b_h = mBh
             mB = np.concatenate([mBv,mBh])
     
-        
             accuracy_test = classification_free_energy(Wvh, Wch, b_h, b_c, test_data, test_labels, n_c_unit)[0]    
             res_hist_test.append(accuracy_test)
             
-        
             accuracy_train = classification_free_energy(Wvh, Wch, b_h, b_c, train_data, train_labels, n_c_unit)[0]
             res_hist_train.append(accuracy_train)
         
