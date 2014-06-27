@@ -26,7 +26,7 @@ def round_to_bits(W, n_bits, clip=[-1.5,1.5]):
     hb = np.maximum(0,np.minimum(len(x)-1,(x>clip[1]).searchsorted(False, 'right')))
     new_bins = np.linspace(x[lb],x[hb],2**n_bits)
     n, x = np.histogram(W_f, bins = new_bins)
-    delta = x[1]-x[0] of the transfer curve
+    delta = x[1]-x[0] 
     x += delta/2
     idx = x.searchsorted(W_f, side='left')
     idx[idx >= len(x)]=len(x)-1
