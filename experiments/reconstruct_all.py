@@ -6,9 +6,9 @@
 # Author: Emre Neftci
 #
 # Creation Date : 25-04-2013
-# Last Modified : Fri 27 Jun 2014 02:27:16 PM PDT
+# Last Modified : Fri 27 Jun 2014 02:42:58 PM PDT
 #
-# Copyright : (c) 
+# Copyright : (c) UCSD, Emre Neftci, Srinjoy Das, Bruno Pedroni, Kenneth Kreutz-Delgado, Gert Cauwenberghs
 # Licence : GPLv2
 #----------------------------------------------------------------------------- 
 import numpy

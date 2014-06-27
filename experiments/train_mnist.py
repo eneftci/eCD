@@ -6,27 +6,21 @@
 # Author: Emre Neftci
 #
 # Creation Date : 01-10-2013
-# Last Modified : Fri 27 Jun 2014 02:36:33 PM PDT
+# Last Modified : Fri 27 Jun 2014 02:44:18 PM PDT
 #
-# Copyright : (c) 
+# Copyright : (c) UCSD, Emre Neftci, Srinjoy Das, Bruno Pedroni, Kenneth Kreutz-Delgado, Gert Cauwenberghs
 # Licence : GPLv2
 #----------------------------------------------------------------------------- 
+
 import meta_parameters
 meta_parameters.parameters_script = 'parameters_mnist'
 
-from MNIST_IF_STDP_UB import *
+from MNIST_IF_STDP import *
 
 if __name__ == '__main__':
     mnist_data = load_mnist_data(min_p = .00001, max_p = .98, binary = True, seed=0)
     Id = create_Id(mnist_data, c_min_p = .00001, c_max_p = .98)
     W, b_v, b_c, b_h = create_rbm_parameters()
-#    Wh,Wc,b_init = load_NS_v2(N_v,N_h,N_c,dataset = 'Results//073a__06-10-2013/WSCD.pkl')
-#    W = np.zeros([N_v+N_c,N_h])
-#    W[:(N_v),:] = Wh
-#    W[N_v:(N_v+N_c),:] = Wc.T
-#    b_h = b_init[(N_v+N_c):]
-#    b_v = b_init[:N_v]
-#    b_c = b_init[N_v:(N_v+N_c)]
     loc = main(W, b_v, b_c, b_h, Id = Id, dorun = True, monitors = False, display=True, mnist_data=mnist_data)
     locals().update(loc)
     W=Srs.w.data.copy().reshape(N_v+N_c, N_h)*beta

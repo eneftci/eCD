@@ -6,16 +6,16 @@
 # Author: Emre Neftci
 #
 # Creation Date : 25-04-2013
-# Last Modified : Fri 27 Jun 2014 02:25:31 PM PDT
+# Last Modified : Fri 27 Jun 2014 02:44:54 PM PDT
 #
-# Copyright : (c) 
+# Copyright : (c) UCSD, Emre Neftci, Srinjoy Das, Bruno Pedroni, Kenneth Kreutz-Delgado, Gert Cauwenberghs
 # Licence : GPLv2
 #----------------------------------------------------------------------------- 
 import numpy
 import meta_parameters
 meta_parameters.parameters_script = 'parameters_demo'
 from common import *
-from MNIST_IF_STDP_SEQ_UB import main
+from MNIST_IF_STDP_SEQ import main
 from common import *
 ioff()
 

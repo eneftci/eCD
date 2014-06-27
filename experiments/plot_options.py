@@ -6,11 +6,12 @@
 # Author: Emre Neftci
 #
 # Creation Date : 24-04-2013
-# Last Modified : Fri 27 Jun 2014 01:59:24 PM PDT
+# Last Modified : Fri 27 Jun 2014 02:42:49 PM PDT
 #
-# Copyright : (c) 
+# Copyright : (c) UCSD, Emre Neftci, Srinjoy Das, Bruno Pedroni, Kenneth Kreutz-Delgado, Gert Cauwenberghs
 # Licence : GPLv2
 #----------------------------------------------------------------------------- 
+
 import matplotlib, pylab
 matplotlib.rcParams['text.usetex']=False
 matplotlib.rcParams['savefig.dpi']=800.

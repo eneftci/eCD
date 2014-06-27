@@ -1,3 +1,17 @@
+#-----------------------------------------------------------------------------
+# File Name : README.py
+# Purpose: README file
+#
+# Author: Emre Neftci
+#
+# Creation Date : 27-06-2014
+# Last Modified : 
+#
+# Copyright : (c) UCSD, Emre Neftci, Srinjoy Das, Bruno Pedroni, Kenneth Kreutz-Delgado, Gert Cauwenberghs
+# Licence : GPLv2
+#----------------------------------------------------------------------------- 
+
+
 Python pre-requisites
 ---------------------
 -Brian (http://briansimulator.org/)
@@ -20,9 +34,15 @@ Installation steps
 
 >>> sudo python setup.py install
 
-If you wish to install in a user directory, you need to add this directory in the PYTHONPATH environment variable.  Assuming you have a 64-bit machine:
+If you wish to install in a user directory, you need to add this directory in the PYTHONPATH environment variable.  
 
+For a 64-bit installation:
 >>> export PYTHONPATH=$PYTHONPATH:your_directory/lib64/python2.7/site-packages'
+
+For a 32-bit installation:
+>>> export PYTHONPATH=$PYTHONPATH:your_directory/lib/python2.7/site-packages'
+
+Then install using:
 >>> python setup.py install --prefix=your_directory
 
 For more information on python paths and installing modules, see https://docs.python.org/2/install
@@ -33,12 +53,14 @@ Running the scripts
 The scripts in the experiments directory generate the data necessary for the figures in the paper "Event-driven Constrastive Divergence for Spiking Neuromorphic Systems".
 
 
+
 calibrate.py: Calibrates the parameters of the sigmoid function by fitting the parameters gamma and beta to the transfer function of the IF neuron (Fig. 2)
 
 accuracy_pre_trained.py
 accuracy_pre_trained_finite.py
-train_mnist.py
-convergence.py
+train_mnist.py: 
+convergence.py: Generates plots from a pre-trained RBM showing the convergence of the eCD rule
+
 demo_prediction_construction.py
 kldivergence_parameters_short_unbounded.py
 
@@ -50,8 +72,7 @@ MNIST_IF_STDP.py: Script containing the main functions for training the Integrat
 MNIST_SRM_STDP.py: Similar to above but using the ideal transfer curve (i.e. the Spike Response Model)
 MNIST_SRM_RATE.py: Similar to above, but using standard CD and the ideal transfer curve (i.e. the Spike Response Model)
 
-parameters_*.py: These files files that contain parameters used for the experiments scripts 
-
+parameters_*.py: These files contain parameters used for the experiments scripts 
 
 The neuron models are specified in the neusa library. See the file src/neural_sampling/experimentLib.py
 
