@@ -1,0 +1,24 @@
+Python Pre-requisites
+-Brian (http://briansimulator.org/)
+-Numpy (http://www.numpy.org/)
+-Matplotlib (http://matplotlib.org/)
+
+Other pre-requisites:
+- git (http://git-scm.com/)
+
+Clone the dire
+1. git clone  http://github.com/eneftci/eCD
+
+Install the python library (will be installed as neusa). This will install as root. 
+2. sudo python setup.py install
+
+If you wish to install in a user directory, you need to add this directory in the PYTHONPATH environment variable.  Assuming you have a 64-bit machine:
+
+python setup.py install --prefix=your_directory
+export PYTHONPATH=$PYTHONPATH:your_directory/lib64/python2.7/site-packages'
+
+
+
+
+
+
