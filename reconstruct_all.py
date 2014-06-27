@@ -6,7 +6,7 @@
 # Author: Emre Neftci
 #
 # Creation Date : 25-04-2013
-# Last Modified : Fri 27 Jun 2014 03:42:36 PM PDT
+# Last Modified : Fri 27 Jun 2014 04:26:09 PM PDT
 #
 # Copyright : (c) UCSD, Emre Neftci, Srinjoy Das, Bruno Pedroni, Kenneth Kreutz-Delgado, Gert Cauwenberghs
 # Licence : GPLv2
@@ -15,7 +15,7 @@ import numpy
 import meta_parameters
 meta_parameters.parameters_script = 'parameters_reconstruct_all'
 from common import *
-from MNIST_IF_STDP_SEQ_UB import main
+from MNIST_IF_STDP_SEQ import main
 
 #Load pre-trained RBM
 Wh,Wc,b_init = load_NS_v2(N_v, N_h, N_c, dataset = 'data/WSCD.pkl')
