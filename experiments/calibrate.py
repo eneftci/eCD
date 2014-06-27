@@ -6,13 +6,13 @@
 # Author: Emre Neftci
 #
 # Creation Date : 24-04-2013
-# Last Modified : Fri 27 Jun 2014 01:52:16 PM PDT
+# Last Modified : Fri 27 Jun 2014 02:02:04 PM PDT
 #
 # Copyright : (c) UCSD, Emre Neftci, Srinjoy Das, Bruno Pedroni, Kenneth Kreutz-Delgado, Gert Cauwenberghs
 # Licence : GPLv2
 #----------------------------------------------------------------------------- 
 import meta_parameters 
-meta_parameters.parameters_script = 'cal_test_parameters_short_unbounded'
+meta_parameters.parameters_script = 'parameters_calibrate'
 from common import *
 
 N_h = N_hidden = 20
@@ -120,6 +120,8 @@ if __name__ == '__main__':
     et.globaldata.pool_out_sigm = pool_out_sigm
     et.globaldata.P = P
     et.save()
+
+    show()
 
 
     
