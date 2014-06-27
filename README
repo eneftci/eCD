@@ -30,21 +30,30 @@ For more information on python paths and installing modules, see https://docs.py
 Running the scripts
 -------------------
 
-The scripts in the experiments directory generate the data necessary for the figures in the paper "Event-driven Constrastive Divergence for Spiking Neuromorphic Systems"
+The scripts in the experiments directory generate the data necessary for the figures in the paper "Event-driven Constrastive Divergence for Spiking Neuromorphic Systems".
 
-MNIST_IF_STDP_SEQ_UB.py                                                                                       
-MNIST_IF_STDP_UB.py
-MNIST_IF_STDP_WMON_UB.py
-MNIST_SRM_RATE.py
-MNIST_SRM_STDP.py
+
+calibrate.py: Calibrates the parameters of the sigmoid function by fitting the parameters gamma and beta to the transfer function of the IF neuron (Fig. 2)
 
 accuracy_pre_trained.py
-accuracy_pre_trained_finite_UB.py
-cal_test_parameters_short_unbounded.py
-calibrate_beta_gamma_wn_unbounded.py
+accuracy_pre_trained_finite.py
+train_mnist.py
 convergence.py
 demo_prediction_construction.py
 kldivergence_parameters_short_unbounded.py
+
+The following files run the core RBM + eCD (CD) on MNIST data:
+
+MNIST_IF_STDP.py: Script containing the main functions for training the Integrate and Fire neuron based RBM using event-driven CD
+    MNIST_IF_STDP_SEQ.py: Similar to above, but used for the demonstrate_generative_model.py
+    MNIST_IF_STDP_WMON.py: Similar to above, but used for convergence.py
+MNIST_SRM_STDP.py: Similar to above but using the ideal transfer curve (i.e. the Spike Response Model)
+MNIST_SRM_RATE.py: Similar to above, but using standard CD and the ideal transfer curve (i.e. the Spike Response Model)
+
+parameters_*.py: These files files that contain parameters used for the experiments scripts 
+
+
+The neuron models are specified in the neusa library. See the file src/neural_sampling/experimentLib.py
 
 
 

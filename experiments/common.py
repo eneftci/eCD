@@ -7,12 +7,10 @@ import numpy as np
 import scipy.io
 import cPickle, pylab, matplotlib
 
-
 from neusa.experimentLib import *
 from neusa.funcs import *
 
 import neusa.experimentTools as et
-
 
 from meta_parameters import *
 exec("from {0} import *".format(parameters_script))
