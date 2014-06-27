@@ -157,7 +157,7 @@ def load_NS_v2(N_v, N_h, N_c, dataset = 'Results/062__22-05-2013/WSCD.pkl'):
     b_vch = res['b_vch'] 
     return Wh, Wc, b_vch
 
-def load_matlab_v1(N_v, N_h, N_c, dataset = '../data/neural_nosoftmax2.mat'):
+def load_matlab_v1(N_v, N_h, N_c, dataset = 'data/neural_nosoftmax2.mat'):
     import scipy.io
     mat = scipy.io.loadmat(dataset)
     bias_v = b_v = mat['c'].reshape(N_v)
@@ -168,10 +168,10 @@ def load_matlab_v1(N_v, N_h, N_c, dataset = '../data/neural_nosoftmax2.mat'):
     Wc = mat['Wc'].T #transposed because the data is formatted differently than Wh
     return Wh, Wc, b_vch
 
-def load_theano(N_v, N_h, N_c, dataset = '../data/WhWcbvbhbc_dict_theano.pkl'):
+def load_theano(N_v, N_h, N_c, dataset = 'data/WhWcbvbhbc_dict_theano.pkl'):
     res = cPickle.load(file(dataset,'r'))
     print "Loading pre-trained (Theano)"
-    #res = scipy.io.loadmat('../data/model_all_digits.mat')['model_AllDigits']
+    #res = scipy.io.loadmat('data/model_all_digits.mat')['model_AllDigits']
     bias_v = b_v = res['bv'].reshape(N_v)
     bias_h = b_h = res['bh'].reshape(N_h)
     bias_c = b_c = res['bc'].reshape(N_c)
@@ -180,7 +180,7 @@ def load_theano(N_v, N_h, N_c, dataset = '../data/WhWcbvbhbc_dict_theano.pkl'):
     Wc = res['Wc'].T #transposed because the data is formatted differently than Wh
     return Wh, Wc, b_vch
 
-def load_matlab_v2(N_v, N_h, N_c, model='model1', dataset = '../data/model_20units.mat'):
+def load_matlab_v2(N_v, N_h, N_c, model='model1', dataset = 'data/model_20units.mat'):
     print "Loading pre-trained (Matlab)"
     import scipy.io
     res = scipy.io.loadmat(dataset)[model]
@@ -192,7 +192,7 @@ def load_matlab_v2(N_v, N_h, N_c, model='model1', dataset = '../data/model_20uni
     Wc = res['Wc'][0,0].T #transposed because the data is formatted differently than Wh
     return Wh, Wc, b_vch
 
-def load_matlab_v3(N_v, N_h, N_c, dataset = '../data/model_20units.mat'):
+def load_matlab_v3(N_v, N_h, N_c, dataset = 'data/model_20units.mat'):
     print "Loading pre-trained (Matlab)"
     import scipy.io
     res = scipy.io.loadmat(dataset)['model2']
@@ -204,7 +204,7 @@ def load_matlab_v3(N_v, N_h, N_c, dataset = '../data/model_20units.mat'):
     Wc = res['Wc'][0,0].T #transposed because the data is formatted differently than Wh
     return Wh, Wc, b_vch
 
-def load_NS(N_v, N_h, N_c, dataset_W = '../data/WSCD10_2', dataset_b ='../data/WSCD10b_2'):
+def load_NS(N_v, N_h, N_c, dataset_W = 'data/WSCD10_2', dataset_b ='data/WSCD10b_2'):
     import cPickle
     # print 'Pre-loading continuous CD'
     W = cPickle.load(file(dataset_W,'r'))
