@@ -18,6 +18,9 @@ Python pre-requisites
 -Numpy (http://www.numpy.org/)
 -Matplotlib (http://matplotlib.org/)
 
+For kldivergence.py only:
+-neuro_kl (https://github.com/pberkes/neuro-kl)
+
 
 Other pre-requisites:
 ---------------------
@@ -35,15 +38,23 @@ The scripts in the experiments directory generate the data necessary for the fig
 
 calibrate.py: Calibrates the parameters of the sigmoid function by fitting the parameters gamma and beta to the transfer function of the IF neuron (Fig. 2)
 
-accuracy_pre_trained.py: Tests recognition accuracy on the entire MNIST test-set 
-accuracy_pre_trained_finite.py: Same as above but discretizes parameter to finite precision.
-train_mnist.py: Main script for training the RBM using eCD
-convergence.py: Generates plots from a pre-trained RBM showing the convergence of the eCD rule.
+accuracy_pre_trained.py
+Tests recognition accuracy on the entire MNIST test-set 
 
-demo_prediction_construction.py
-kldivergence_parameters_short_unbounded.py
+accuracy_pre_trained_finite.py
+Same as above but discretizes parameter to finite precision.
 
-The following files run the core RBM + eCD (CD) on MNIST data:
+train_mnist.py
+Main script for training the RBM using eCD
+
+convergence.py
+Generates (panels for Fig. 7) from a pre-trained RBM showing the convergence of the eCD rule. 
+
+demonstrate_generative_model.py
+Generates data for Fig. 9
+
+
+The following files run the RBM + eCD (CD) on MNIST data, they can be ran directly, but are primarily intended to be used through the previously described scripts.
 
 MNIST_IF_STDP.py: Script containing the main functions for training the Integrate and Fire neuron based RBM using event-driven CD
     MNIST_IF_STDP_SEQ.py: Same as above, but with modification for plotting purposes in demonstrate_generative_model.py
@@ -53,12 +64,15 @@ MNIST_SRM_RATE.py: Similar to above, but using standard CD and the ideal transfe
 
 parameters_*.py: These files contain parameters used for the experiments scripts 
 
-The neuron models are specified in the neusa library. See the file src/neural_sampling/experimentLib.py
 
-File permissions convention:
+File permissions convention
+---------------------------
 Files that are designed to run standalone (with a if __name__ == '__main__' statement) have executable permissions, the others do not.
 
 
+Remarks about customization
+---------------------------
+The neuron models are specified in neusa/experimentLib.py
 
 
 
