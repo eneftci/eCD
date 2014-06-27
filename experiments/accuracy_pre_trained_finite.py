@@ -1,29 +1,23 @@
 #!/bin/python
 #-----------------------------------------------------------------------------
-# File Name : mnist_feedback.py
-# Purpose:
+# File Name : accuracy_pre_trained_finite_UB.py
+# Purpose: Tests the accuracy of a pre-trained RBM for finite precision parameters
 #
 # Author: Emre Neftci
 #
 # Creation Date : 25-04-2013
-# Last Modified : Tue 28 Jan 2014 11:45:22 AM PST
+# Last Modified : Fri 27 Jun 2014 01:56:12 PM PDT
 #
-# Copyright : (c) 
+# Copyright : (c) UCSD, Emre Neftci, Srinjoy Das, Bruno Pedroni, Kenneth Kreutz-Delgado, Gert Cauwenberghs
 # Licence : GPLv2
 #----------------------------------------------------------------------------- 
+
 import meta_parameters
 meta_parameters.parameters_script = 'accuracy_parameters_short_unbounded'
 from common import *
 from MNIST_IF_RATE_UB import main
 
-#Wh,Wc,b_init = load_NS_v2(N_v, N_h, N_c, dataset = 'Results//064__04-10-2013/WSCD.pkl')
-#Wh,Wc,b_init = load_NS_v2(N_v, N_h, N_c, dataset = 'Results//076a__06-10-2013/WSCD.pkl')
 Wh,Wc,b_init = load_NS_v2(N_v, N_h, N_c, dataset = '../data/WSCD.pkl')
-#Wh,Wc,b_init = load_matlab_v2(N_v, N_h, N_c, model='model', dataset = '../data/rbm_gibbs_bias_momentum_decay_multiclassunits_backtoback.mat')
-#
-#Wh,Wc,b_init = load_matlab_v2(N_v, N_h, N_c, model='model', dataset = '../data/rbm_gibbs_bias_no_momentum_no_decay_multiclassunits_backtoback.mat')
-##Wh,Wc,b_init = load_matlab_v2(N_v, N_h, N_c, model='model5',dataset = '../data/model_5units.mat')
-#Wh,Wc,b_init = load_matlab_v1(N_v, N_h, N_c, dataset = '../data/neural_nosoftmax2.mat')
 W = np.zeros([N_v+N_c,N_h])
 W[:(N_v),:] = Wh
 W[N_v:(N_v+N_c),:] = Wc.T
@@ -38,8 +32,10 @@ data =  mnist_data = load_MNIST(1,
                             binary = True,
                             seed = None)
 
-nbits = 8
-c=8.5
+#Discretize the Boltzmann machine parameters 
+#The parameter range is [mean-c*std, mean+c*std]
+nbits = 8 #Number of bits
+c=8.5 #Cut-off
 b_v = round_to_bits(b_v, nbits, clip = [b_v.mean()-c*b_v.std(),b_v.mean()+c*b_v.std()])
 b_h = round_to_bits(b_h, nbits, clip = [b_h.mean()-c*b_h.std(),b_h.mean()+c*b_h.std()])
 b_c = round_to_bits(b_c, nbits, clip = [b_c.mean()-c*b_c.std(),b_c.mean()+c*b_c.std()])
@@ -70,9 +66,8 @@ if __name__ == '__main__':
     print 'free energy all test samples {0}'.format(classification_free_energy(Wh, Wc.T, b_h, b_c, data[4], data[5], n_c_unit)[0])
     print 'free energy {1} test samples {0}'.format(free_en_perf, N)
 
-
     import multiprocessing
-    pool = multiprocessing.Pool(24)
+    pool = multiprocessing.Pool(8)
     pool_out = pool.map(wrap_run, Ids)
 
     et.globaldata.pool_out = pool_out
