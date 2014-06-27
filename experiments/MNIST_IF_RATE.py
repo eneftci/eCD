@@ -6,14 +6,14 @@
 # Author: Emre Neftci
 #
 # Creation Date : 25-04-2013
-# Last Modified : Fri 27 Jun 2014 02:11:37 PM PDT
+# Last Modified : Fri 27 Jun 2014 02:59:11 PM PDT
 #
 # Copyright : (c) 
 # Licence : GPLv2
 #----------------------------------------------------------------------------- 
 from common import *
-ion() #Necessary for performance plots
 
+ion() #Necessary for performance plots
 def main(Whv, b_v, b_c, b_h, Id, dorun = True, monitors=True, display=False, mnist_data = None, vmem_monitors=False):
     b_init = np.concatenate([b_v, b_c, b_h])
     defaultclock.reinit() 
