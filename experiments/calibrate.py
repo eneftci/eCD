@@ -1,14 +1,14 @@
 #!/bin/python
 #-----------------------------------------------------------------------------
-# File Name : neural_sampler_clif.py
-# Purpose:
+# File Name : calibrate.py
+# Purpose: Calibrates the parameters of the sigmoid function by fitting the parameters gamma and beta to the transfer function of the IF neuron
 #
 # Author: Emre Neftci
 #
 # Creation Date : 24-04-2013
-# Last Modified : Sat 30 Nov 2013 02:40:28 PM PST
+# Last Modified : Fri 27 Jun 2014 01:52:16 PM PDT
 #
-# Copyright : (c) 
+# Copyright : (c) UCSD, Emre Neftci, Srinjoy Das, Bruno Pedroni, Kenneth Kreutz-Delgado, Gert Cauwenberghs
 # Licence : GPLv2
 #----------------------------------------------------------------------------- 
 import meta_parameters 
@@ -28,7 +28,7 @@ def wrap_run(bias, t_ref):
     #------------------------------------------ Neuron Groups
     i_inj = 0*amp #We are trying to calibrate gamma and beta, so i-inj cannot be calculated
                   
-    eqs = Equations(eqs_str_lif_wnrd, 
+    eqs = Equations(eqs_str_lif_wnrd, #neuron equations are described in neusa.experimentLib
             Cm = 1e-12*farad,
             I_inj = i_inj + bias_h,
             g = g_leak,
@@ -64,7 +64,6 @@ def wrap_run_tref(bias):
 
 
 if __name__ == '__main__':
-#    run(t_sim)
     N_run = 48
     import multiprocessing
     pool = multiprocessing.Pool(8)
@@ -72,29 +71,18 @@ if __name__ == '__main__':
     rates = np.linspace(-6000e-12,00e-12, N_run)
     pool_out = pool.map(wrap_run_notref, rates)
     rates_out = np.array(pool_out)
-#
+ 
     rates_sigm = np.linspace(-6000e-12,2000e-12, N_run)
     pool_out_sigm = pool.map(wrap_run_tref, rates_sigm)
     rates_out_sigm = np.array(pool_out_sigm)
 
-
-
-    
     idx = (rates_out>30) * (rates_out<.7/t_ref)
     P = -polyfit(rates[idx], log(rates_out[idx]), 1)
 
- 
     idx = (rates_out_sigm>40) * (rates_out_sigm<1./t_ref-40)
     P = polyfit(rates_sigm[idx], log(rates_out_sigm[idx]**-1-t_ref), 1)
     
-    import cPickle
-    gd_srm = cPickle.load(file('Results/332__30-11-2013/globaldata.pickle','r'))
-    pool_out_srm = gd_srm.pool_out
-    pool_out_sigm_srm = gd_srm.pool_out_sigm
-
-    rates_out_srm = np.array(pool_out_srm)
-    rates_out_sigm_srm = np.array(pool_out_sigm_srm)
-
+    #Generate plot
     from plot_options import * 
     matplotlib.rcParams['font.size']=15.0
     matplotlib.rcParams['figure.subplot.left'] = .2
@@ -105,7 +93,6 @@ if __name__ == '__main__':
     dx_plot = range(np.nonzero(rates_out>.5)[0][0],np.nonzero(rates_out>75)[0][0])
     plot(rates, np.exp(-P[1]-P[0]*rates), linewidth=2, color='k', label='$\\gamma\,\\exp(\\beta)$')
     plot(rates, rates_out, 'o', markersize=3, color='b',markeredgecolor='b', label='$\\rho(I)$')
-    plot(rates, rates_out_srm, 'x', markersize=5, color='b',markeredgecolor='b', label='$\\rho(I)_{Abst}$')
     xlabel('$I_{inj}\mathrm{[nA]}$',fontsize=17)
     ylabel('$\\nu\mathrm{[Hz]}$',fontsize=17)
     xticks( xticks()[0][::2],
@@ -119,7 +106,6 @@ if __name__ == '__main__':
     title('$(\\tau_r = 4\\mathrm{ms})$')
     plot(rates_sigm, (1./t_ref)/(1+np.exp(P[0]*rates_sigm+P[1]-np.log(t_ref))), linewidth=2, color='k',  label='$\\left(\\tau+\\gamma^{-1}\\exp(-\\beta)\\right)^{-1}$')
     plot(rates_sigm, rates_out_sigm, 'o', markersize=3, mfc='b',markeredgecolor='b',label='$\\rho(I)$')
-    plot(rates_sigm, rates_out_sigm_srm, 'x', markersize=5, color='b',markeredgecolor='b',label='$\\rho(I)_{Abst}$')
     xlabel('$I_{inj}\mathrm{[nA]}$',fontsize=17)
     ylabel('$\\nu\mathrm{[Hz]}$',fontsize=17)
     ylim([-10,60])
