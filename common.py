@@ -33,10 +33,13 @@ def round_to_bits(W, n_bits, clip=[-1.5,1.5]):
     W_approx = w.reshape(W.shape)
     return W_approx
 
-def create_rbm_parameters():
+def create_rbm_parameters(wmean=0, b_vmean=0, b_hmean=0):
     #------------------------------------------ Bias and weights
     b_v, b_c, b_h = create_bias_vectors(N_v, N_c, N_h)
     Whv = create_weight_matrix(N_v, N_h, N_c, sigma = 0.1)    
+    Whv+= wmean
+    b_v+= b_vmean
+    b_h+= b_hmean
     return Whv, b_v, b_c, b_h
     
 def load_mnist_data(min_p = 1e-4, max_p=.95, binary=False, seed=None):
