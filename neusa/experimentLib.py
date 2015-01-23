@@ -43,15 +43,19 @@ def select_equal_n_labels(n, data, labels, classes = None, seed=None):
     iv_l_seq = labels[a]
     return iv_seq, iv_l_seq
 
-def load_MNIST(n_samples, min_p = 0.0001, max_p = .95, binary = False, seed=None, datafile = 'data/mnist_reduced.pkl.gz'):
-
+def bound_data(data, min_p = 0.0001, max_p = .95, binary = False):
     if not binary:
         max_p_ = max_p
         min_p_ = min_p
     else:
         max_p_ = 0.5
         min_p_ = 0.5
-        
+    data[data >= max_p_] = max_p
+    data[data < min_p_] = min_p
+    
+    
+
+def load_MNIST(n_samples, min_p = 0.0001, max_p = .95, binary = False, seed=None, datafile = 'data/mnist_reduced.pkl.gz'):
     import gzip, cPickle
     mat = cPickle.load(gzip.open(datafile, 'r'))
 
@@ -60,10 +64,8 @@ def load_MNIST(n_samples, min_p = 0.0001, max_p = .95, binary = False, seed=None
     test_iv = mat['test']
     test_iv_l = mat['test_label']
     
-    train_iv[train_iv >= max_p_] = max_p
-    test_iv[test_iv >= max_p_]= max_p
-    train_iv[train_iv < min_p_] = min_p
-    test_iv[test_iv < min_p_]= min_p
+    bound_data(train_iv, min_p, max_p, binary)
+    bound_data(test_iv, min_p, max_p, binary)
     
     iv_seq, iv_l_seq = select_equal_n_labels(n_samples, train_iv, train_iv_l, seed = seed)
     
@@ -141,6 +143,11 @@ dI_rec/dt = -I_rec/tau_rec : amp
 
 eqs_str_lif_wnr = '''
 dv/dt = (-g*v + I_inj + I_rec + sigma*xi)/Cm :volt
+dI_rec/dt = -I_rec/tau_rec : amp
+'''
+
+eqs_str_lif_r = '''
+dv/dt = (-g*v + I_inj + I_rec)/Cm :volt
 dI_rec/dt = -I_rec/tau_rec : amp
 '''
 

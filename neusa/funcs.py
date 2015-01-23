@@ -240,7 +240,7 @@ def plot_hist(s_count, k_count, p, b = None, log = False):
 
 def build_pdf(W, b1, b2):
     '''
-    Compute table of probabilities
+    Compute table of probabilities for the RBM
     '''
     n1 = len(b1)
     n2 = len(b2)
@@ -250,6 +250,20 @@ def build_pdf(W, b1, b2):
     bx = np.concatenate([b1, b2])
     def f(z):
         return np.exp(0.5*np.dot(z,np.dot(z,Wx))+np.dot(z,bx))
+    return f, Wx, bx
+
+def build_pdf_vect(W, b1, b2):
+    '''
+    Compute table of probabilities for the RBM
+    '''
+    n1 = len(b1)
+    n2 = len(b2)
+    Wx = np.zeros([n1+n2,n1+n2])
+    Wx[:n1,n1:(n1+n2)] = W
+    Wx[n1:(n1+n2),:n1] = W.T
+    bx = np.concatenate([b1, b2])
+    def f(z):
+        return np.exp(0.5*np.sum(z*np.dot(z,Wx),axis=1)+np.dot(z,bx))
     return f, Wx, bx
 
 def kl_divergence_pdf(distr, W, b1, b2):
@@ -380,7 +394,7 @@ def build_binary_vectors(N):
     return np.array(g, 'int')
 
 def p(W, b):
-    #return the boltzmann distribution defined by the weight matrix and the biases
+    #return the bltzmann distribution defined by the weight matrix and the biases
     def func(z):
         return np.exp(0.5*np.dot(np.dot(W,z),z)+np.dot(b,z))
     return func
@@ -407,10 +421,13 @@ def inst_firing_rate(N, M, t_start, t_stop, dt=0.001):
     return S
 
 def monitor_to_spikelist(Ms):
-    s = np.array(Ms.spikes)
-    id_list = range(len(Ms.source))
-    s[:,1] = s[:,1] * 1000 #SpikeList takes ms
-    return spikes.SpikeList(spikes = s, id_list = id_list)
+    if len(Ms.spikes)>0:
+        s = np.array(Ms.spikes)
+        id_list = range(len(Ms.source))
+        s[:,1] = s[:,1] * 1000 #SpikeList takes ms
+        return spikes.SpikeList(spikes = s, id_list = id_list)
+    else:
+        return spikes.SpikeList(id_list = id_list)
 
 def get_indexes(a):
     import numpy as np
