@@ -6,7 +6,7 @@
 # Author: Emre Neftci
 #
 # Creation Date : 24-04-2013
-# Last Modified : Thu 22 Jan 2015 11:07:24 AM PST
+# Last Modified : Thu 22 Jan 2015 12:07:15 PM PST
 #
 # Copyright : (c) UCSD, Emre Neftci, Srinjoy Das, Bruno Pedroni, Kenneth Kreutz-Delgado, Gert Cauwenberghs
 # Licence : GPLv2
@@ -23,24 +23,23 @@ t_sim = 5000*ms
 def wrap_run(bias, t_ref):
     defaultclock.reinit()
     #----------------------------------------- RBM parameters
-
     #------------------------------------------ Neuron Groups
     i_inj = 0*amp #We are trying to calibrate gamma and beta, so i-inj cannot be calculated
                   
-    eqs = Equations(eqs_str_lif_wnrd, #neuron equations are described in neusa.experimentLib
+    eqs = Equations(eqs_str_lif_rd, 
             Cm = cm,
             I_inj = bias,
             g = g_leak,
-            sigma = wnsigma,
             tau_rec = tau_rec)
                                                
-    neuron_group = NeuronGroup(\
-            N,
-            model = eqs,
-            threshold = 'v>theta*volt',
-            refractory = t_ref,
-            reset = 0*volt
-            )
+    print "Creating Population"
+    #beta arbitrary choice
+    beta = 2024467142.18
+    gamma = 8183.40
+    neuron_group_hidden =  NeuronGroup((N),
+          model=eqs,
+          threshold = SimpleFunThreshold( exp_prob_beta_gamma(defaultclock.dt, beta, g_leak, gamma), state = 'v'),
+          refractory = t_ref)
 
 
     #set injection currents
@@ -48,11 +47,11 @@ def wrap_run(bias, t_ref):
     #Inject Noise for neural sampling
 
     #--------------------------- Monitors
-    M  = SpikeMonitor(neuron_group)
-    net = Network([neuron_group, M])
+    Mh  = SpikeMonitor(neuron_group_hidden)
+    net = Network([neuron_group_hidden, Mh])
     print "running"
     net.run(t_sim)
-    mmon_slice = time_slice(M, t_start=.5*second, t_stop=t_sim)
+    mmon_slice = time_slice(Mh, t_start=.5*second, t_stop=t_sim)
     return float(len(mmon_slice.spikes)) / N / (t_sim-.5*second)
 
 def wrap_run_notref(bias):
@@ -120,9 +119,6 @@ if __name__ == '__main__':
     et.globaldata.pool_out_sigm = pool_out_sigm
     et.globaldata.P = P
     et.save()
-
-
-    print 'Fitted values are gamma: {0}  beta: {1}'.format(np.exp(-P[1]),-P[0])
 
     show()
 

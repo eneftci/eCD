@@ -98,10 +98,38 @@ dI_rec/dt = -I_rec/tau_rec : amp
 I_d : amp
 '''
 
+eqs_str_lif_rd_g = '''
+dv/dt = (-g*v + I_inj + gate*I_rec + I_d)/Cm :volt
+dI_rec/dt = -I_rec/tau_rec : amp
+I_d : amp
+gate : 1
+'''
+eqs_str_lif_rd = '''
+dv/dt = (-g*v + I_inj + I_rec + I_d)/Cm :volt
+dI_rec/dt = -I_rec/tau_rec : amp
+I_d : amp
+'''
+
+eqs_str_lif_r = '''
+dv/dt = (-g*v + I_inj + I_rec)/Cm :volt
+dI_rec/dt = -I_rec/tau_rec : amp
+'''
+
 eqs_str_lif_wnrd = '''
 dv/dt = (-g*v + I_inj + I_rec + sigma*xi + I_d)/Cm :volt
 dI_rec/dt = -I_rec/tau_rec : amp
 I_d : amp
+'''
+
+eqs_str_clif_wnrd = '''
+dv/dt = (-g + I_inj + I_rec + sigma*xi + I_d)/Cm :volt
+dI_rec/dt = -I_rec/tau_rec : amp
+I_d : amp
+'''
+
+eqs_str_clif_wnr = '''
+dv/dt = (-g + I_inj + I_rec + sigma*xi)/Cm :volt
+dI_rec/dt = -I_rec/tau_rec : amp
 '''
 
 

@@ -6,7 +6,7 @@
 # Author: Emre Neftci
 #
 # Creation Date : 24-04-2013
-# Last Modified : Fri 27 Jun 2014 04:06:06 PM PDT
+# Last Modified : Thu 22 Jan 2015 01:37:08 PM PST
 #
 # Copyright : (c) UCSD, Emre Neftci, Srinjoy Das, Bruno Pedroni, Kenneth Kreutz-Delgado, Gert Cauwenberghs
 # Licence : GPLv2
@@ -25,22 +25,27 @@ N_h = N_hidden =5
 
 n_c_unit =  N_c/n_classes
 
-t_sim = 2.  #seconds
+t_sim = 100.  #seconds
 dcmt = 5000000 #duty cyle in multiples of t_ref
 
 #----------------------------------------- Neuron parameters
 t_ref = 0.004 # second
 bias_input_rate = 1000 #Hz
-beta = 2.04371561e+09
-gamma = np.exp(9.08343441e+00)
+beta = 1996284416.15
+gamma = 7694.82817441
+cbeta = 706391744.6
+cgamma = 513.666
 tau_noise = .001
 tau_rec = t_ref
 theta = .1 # volt
+ctheta = 1. # volt
 cm = 1e-12 #farad
 beta_fi = 1./cm/theta
+cbeta_fi = 1./cm/ctheta
 sigma = 1.e-9 #amp
 cal_i_lk = 0.0e-10
 g_leak = 1e-9
+cg_leak = 1e-9
 dt = 0.00005
 n_samples = t_sim/(dcmt*t_ref)+1
 wnsigma = 4.24e-11
@@ -60,9 +65,13 @@ deltaAbias = eta/beta/tau_learn*(dcmt*t_ref)/deltaT*t_ref*(1./bias_input_rate)/2
 i_inj = (- np.log(float(gamma))
          - np.log(float(t_ref))
          )/beta #amp
+
+ci_inj = (- np.log(float(cgamma))
+         - np.log(float(t_ref))
+         )/cbeta #For CLIF
          
          
-def exp_prob_beta_gamma(dt, beta, g_leak, gamma, t_ref):
+def exp_prob_beta_gamma(dt, beta, g_leak, gamma):
     def func(V):
         return np.random.rand( len(V) ) < (1-np.exp(-np.exp(V*beta*g_leak+np.log(gamma))*float(dt)))
     return func

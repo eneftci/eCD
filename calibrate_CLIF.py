@@ -6,7 +6,7 @@
 # Author: Emre Neftci
 #
 # Creation Date : 24-04-2013
-# Last Modified : Thu 22 Jan 2015 11:07:24 AM PST
+# Last Modified : Thu 22 Jan 2015 11:57:08 AM PST
 #
 # Copyright : (c) UCSD, Emre Neftci, Srinjoy Das, Bruno Pedroni, Kenneth Kreutz-Delgado, Gert Cauwenberghs
 # Licence : GPLv2
@@ -27,21 +27,20 @@ def wrap_run(bias, t_ref):
     #------------------------------------------ Neuron Groups
     i_inj = 0*amp #We are trying to calibrate gamma and beta, so i-inj cannot be calculated
                   
-    eqs = Equations(eqs_str_lif_wnrd, #neuron equations are described in neusa.experimentLib
+    eqs = Equations(eqs_str_clif_wnrd, #neuron equations are described in neusa.experimentLib
             Cm = cm,
             I_inj = bias,
-            g = g_leak,
+            g = cg_leak,
             sigma = wnsigma,
             tau_rec = tau_rec)
                                                
     neuron_group = NeuronGroup(\
             N,
             model = eqs,
-            threshold = 'v>theta*volt',
+            threshold = 'v>ctheta*volt',
             refractory = t_ref,
             reset = 0*volt
             )
-
 
     #set injection currents
     #---------------------- Connections and Synapses
@@ -49,7 +48,10 @@ def wrap_run(bias, t_ref):
 
     #--------------------------- Monitors
     M  = SpikeMonitor(neuron_group)
-    net = Network([neuron_group, M])
+    @network_operation
+    def rigid_boundary():
+        neuron_group.v[neuron_group.v<0] = 0
+    net = Network([neuron_group, M,rigid_boundary])
     print "running"
     net.run(t_sim)
     mmon_slice = time_slice(M, t_start=.5*second, t_stop=t_sim)
@@ -116,13 +118,12 @@ if __name__ == '__main__':
     legend(frameon=False, loc=2,prop={'size':15},numpoints=1,borderaxespad=0.1,handletextpad=0.2)
     et.savefig('sigmoid.png', format='png', dpi=300)
 
+    print 'Fitted values are gamma: {0}  beta: {1}'.format(np.exp(-P[1]),-P[0])
+
     et.globaldata.pool_out = pool_out
     et.globaldata.pool_out_sigm = pool_out_sigm
     et.globaldata.P = P
     et.save()
-
-
-    print 'Fitted values are gamma: {0}  beta: {1}'.format(np.exp(-P[1]),-P[0])
 
     show()
 

@@ -4,6 +4,8 @@ import sys
 import matplotlib #For changing rcParams
 import getopt
 
+colors = ['g','b','r','c','m','y']
+
 #Parse command line options
 optlist,args=getopt.getopt(sys.argv[1:],'lprd:')
 
@@ -32,7 +34,7 @@ elif len(sys.argv)==2:
 et.globaldata = et.load()
 out = et.globaldata.out
 
-Nruns=1
+#Nruns=1
 
 nsteps = int(t_sim/t_ref)
 def r(params):
@@ -49,7 +51,7 @@ def pmplot(ax, x,y,s, **kwparams):
     kwparams['linewidth']=0
     kwparams['alpha']=0.5
     kwparams.pop('marker')
-    fill_between(x, y-s, y+s, **kwparams)
+    fill_between(x, np.maximum(y-s,0), y+s, **kwparams)
     return ax
 
 import multiprocessing
@@ -59,11 +61,14 @@ states_ns, W, b_v, b_h = zip(*out)
 states_ns_ = zip(*states_ns)
 states_gs_ = pool.map(r, [(W[i], b_v[i], b_h[i]) for i in range(Nruns)])
 
-res_ns0_params = [(states_ns_[0][i], W[i], b_v[i], b_h[i]) for i in range(Nruns) ]
-res_ns1_params = [(states_ns_[1][i], W[i], b_v[i], b_h[i]) for i in range(Nruns) ]
-res_0 = pool.map(c, res_ns0_params)
-res_1 = pool.map(c, res_ns1_params)
+#Compute KL divergence for neural samplers
+res_ns_params = []
+res = []
+for k in range(len(states_ns_)):
+    res_ns_params.append([(states_ns_[k][i], W[i], b_v[i], b_h[i]) for i in range(Nruns) ])
+    res.append( pool.map(c, res_ns_params[k]))
 
+#Compute KL divergence for Gibbs sampler
 res_gs_params = [(states_gs_[i], W[i], b_v[i], b_h[i]) for i in xrange(Nruns)]
 res_exact = [run_exact(W[i], b_v[i], b_h[i]) for i in xrange(Nruns ) ]
 res_gs = pool.map(c_gs, res_gs_params)
@@ -77,9 +82,17 @@ matplotlib.rcParams['figure.subplot.right'] = .94
 matplotlib.rcParams['figure.subplot.left'] = .18
 figure(figsize=[4.8,4.8])
 ax = axes()
-pmplot(ax, res_0[0][1] ,avg(res_0) ,std(res_0)  ,color=colors[0], linestyle='-', marker='x', label = '$P_{{ {0}, {1} }}$'.format("NS",runs[0]))
-pmplot(ax, res_1[0][1] ,avg(res_1) ,std(res_1)  ,color=colors[1], linestyle='-', marker='x', label = '$P_{{ {0}, {1} }}$'.format("NS",runs[1]))
-pmplot(ax, res_1[0][1] ,avg(res_gs),std(res_gs) ,color='k', linestyle='-', marker='x', label = '$P_{{ {0} }}$'.format("Gibbs"))
+
+for k in range(len(states_ns_)):
+    pmplot(ax, res[k][0][1] ,avg(res[k]) ,std(res[k])/np.sqrt(Nruns-1),
+            color=colors[k],
+            linestyle='-',
+            marker='x',
+            label=str(k),
+            #label = '$P_{{ {0}, {1} }}$'.format("NS",runs[0])
+            )
+
+pmplot(ax, res[0][0][1] ,avg(res_gs),std(res_gs) ,color='k', linestyle='-', marker='x', label = '$P_{{ {0} }}$'.format("Gibbs"))
 ax.set_xscale('log')
 ax.set_yscale('log')
 ax.grid(True)
@@ -91,7 +104,7 @@ draw()
 et.savefig('sampling_progress.png')
 
 
-distr_ns = [res_0[0][0], res_1[0][0]]
+distr_ns = [res[0][0][0], res[1][0][0]]
 
 
 ##--------------------Plot------------------------------#
