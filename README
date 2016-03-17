@@ -14,7 +14,7 @@
 
 Python pre-requisites
 ---------------------
--Brian (http://briansimulator.org/)
+-Brian (http://briansimulator.org/) version 1.4.0 WARNING: incompatible with version 1.4.3!
 -Numpy (http://www.numpy.org/)
 -Matplotlib (http://matplotlib.org/)
 
